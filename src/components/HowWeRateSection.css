@@ -1,0 +1,66 @@
+
+.how-we-rate-products {
+    padding: 48px 20px 0;
+    background-color: #fff8ef;
+  }
+  
+  @media (min-width: 960px) {
+    .how-we-rate-products {
+      padding: 110px 20px 0;
+    }
+  }
+  
+  .content-max-width {
+    margin: 0 auto;
+    max-width: 1440px;
+  }
+  
+  .tac {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #2b2b2b;
+    line-height: 1.4;
+  }
+  
+  .how-we-rate-content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+    padding: 0 20px;
+  }
+  
+  .how-we-rate-block {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .how-we-rate-block:hover {
+    transform: translateY(-5px);
+  }
+  
+  .how-we-rate-block img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 16px;
+  }
+  
+  .how-we-rate-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #333;
+  }
+  
+  .how-we-rate-block p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+  }
+  

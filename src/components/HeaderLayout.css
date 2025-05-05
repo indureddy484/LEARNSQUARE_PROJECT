@@ -1,0 +1,92 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 10;
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #45524b;
+    color: rgb(244, 240, 240);
+    padding: 17px 27px;
+  }
+  
+  /* Group left/middle/right sections to align better */
+  .header-left,
+  .header-middle,
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Menu icon */
+  .menu-icon {
+    cursor: pointer;
+    font-size: 27px;
+    margin-right: 15px;
+  }
+  
+  /* Navigation links */
+  .navbar a {
+    color: white;
+    margin: 0 20px;
+    text-decoration: none;
+  }
+  
+  /* Search bar */
+  .search-container input {
+    padding: 10px 30px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+  }
+  
+  /* Profile icon */
+  .profile-icon {
+    font-size: 24px;
+    margin-left: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: hsl(0, 18%, 92%);
+    transition: color 1s;
+  }
+  
+  .profile-icon.light {
+    color: #f7f4f4;
+  }
+  
+  .profile-icon:hover {
+    color: #560c0c;
+  }
+  
+  
+
+
+
+  
+  /* Side menu */
+  .side-menu {
+    position: absolute;
+    top: 60px;
+    left: -250px;
+    width: 200px;
+    background-color: hsl(0, 0%, 96%);
+    border: 2px solid #d3d2e0;
+    padding: 20px;
+    transition: left 0.3s;
+    z-index: 1000;
+  }
+  
+  .side-menu.open {
+    left: 0;
+  }
+  
+  .side-menu a {
+    display: block;
+    margin-bottom: 20px;
+    color: #5758ab;
+    text-decoration: none;
+  }
