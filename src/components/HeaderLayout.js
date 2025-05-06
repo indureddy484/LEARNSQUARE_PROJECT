@@ -1,41 +1,70 @@
-
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./HeaderLayout.css";
 
 const HeaderLayout = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [profileDropdown, setProfileDropdown] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
   const toggleMenu = () => {
-    document.getElementById("sideMenu").classList.toggle("open");
+    setMenuOpen(!menuOpen);
   };
 
   const handleProfileClick = () => {
-    console.log("Profile icon clicked");
-    // Future: Navigate to profile page or show dropdown
+    if (user) {
+      setProfileDropdown(!profileDropdown);
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setProfileDropdown(false);
   };
 
   return (
     <>
-      <header>
-        <div className="menu-icon" onClick={toggleMenu}>☰</div>
-        
-        <nav className="navbar">
-          <a href="#">Home</a>
+      <header className="main-header">
+        <div className="menu-icon" onClick={toggleMenu}>
+          ☰
+        </div>
+
+        <nav className="top-navbar">
+          <a href="/">Home</a>
           <a href="#">Blogs</a>
           <a href="#">About Us</a>
         </nav>
+
         <div className="search-container">
           <input type="text" placeholder="Search a product" />
         </div>
-        <button className="profile-icon light" onClick={handleProfileClick}>
-          👤
+
+        <button className="profile-icon" onClick={handleProfileClick}>
+          {/* Show the first letter of the username or email */}
+          {user?.email ? user.email.charAt(0).toUpperCase() : "👤"}
         </button>
+
+        {profileDropdown && (
+          <div className="profile-dropdown">
+            <a href="/wishlist">My Wishlist</a>
+            <a href="/feedback">Give Feedback</a>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        )}
       </header>
 
-      <div className="side-menu" id="sideMenu">
-        <a href="#">Shop by Categories</a>
-        <a href="#">Shop by Brand</a>
-        <a href="#">My Wishlist</a>
-        <a href="#">Contact Us</a>
-      </div>
+      {menuOpen && (
+        <div className="side-menu">
+          <a href="#">Shop by Categories</a>
+          <a href="#">Shop by Brand</a>
+          <a href="/wishlist">My Wishlist</a>
+          <a href="#">Contact Us</a>
+        </div>
+      )}
     </>
   );
 };
