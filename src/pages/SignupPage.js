@@ -1,57 +1,101 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import "./AuthPages.css"; // Reuse same styles for Login/Signup
+import "./AuthPages.css";
 
 const SignupPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { signup } = useAuth();
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ use login from context
 
-  const handleSignup = (e) => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const validateUsername = (uname) => {
+    const hasNumber = /\d/.test(uname);
+    const hasUppercase = /[A-Z]/.test(uname);
+    return hasNumber && !hasUppercase;
+  };
+
+  const handleSignup = async (e) => {
     e.preventDefault();
+    setError("");
 
-    if (!name || !email || !password) {
-      alert("Please fill all fields");
-      return;
+    if (!validateUsername(username)) {
+      return setError("Username must contain at least one number and no uppercase letters.");
     }
 
-    login(name); // ✅ log in user via context
-    alert("Signup successful!");
-    navigate("/");
+    if (password !== confirmPassword) {
+      return setError("Passwords do not match.");
+    }
+
+    try {
+      setLoading(true);
+      await signup(email, password, username); // <-- Adjust based on your actual implementation
+      navigate("/");
+    } catch (err) {
+      setError("Signup failed: " + (err.message || "Unknown error"));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="auth-container">
-      <div className="auth-box">
-        <h2>Create Your Account</h2>
-        <form onSubmit={handleSignup}>
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Create Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type="submit">Sign Up</button>
-        </form>
+      <form className="auth-box" onSubmit={handleSignup}>
+        <h2>Sign Up</h2>
+
+        <input
+          type="email"
+          placeholder="Email"
+          required
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="Username"
+          required
+          autoComplete="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+      
+        />
+
+        <input
+          type="password"
+          placeholder="Create Password"
+          required
+          autoComplete="new-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          
+        />
+
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          required
+          autoComplete="new-password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          
+        />
+
+        {error && <p className="error-msg">{error}</p>}
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing Up..." : "Sign Up"}
+        </button>
         <p>
-          Already have an account? <a href="/login">Log In</a>
+          Don’t have an account? <a href="/LoginPage">Sign Up</a>
         </p>
-      </div>
+      </form>
     </div>
   );
 };
