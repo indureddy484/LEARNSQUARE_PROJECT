@@ -6,7 +6,7 @@ const categories = [
   {
     title: 'FACE',
     img: 'https://static.ewg.org/skindeep/img/cat-face-body_C02.png',
-    subItems: ['Facial Cleanser', 'Facial Moisturizer', 'SunScreen', 'Serums', 'Around Eye Cream']
+    subItems: ['Facial Wash', 'Facial Moisturizer', 'SunScreen', 'Serum', 'Around Eye Cream']
   },
   {
     title: 'BODY',
@@ -23,11 +23,7 @@ const categories = [
     img: 'https://static.ewg.org/skindeep/img/cat-fragrance_C02.png',
     subItems: ['Body Spray', 'Fragrance For Men', 'Fragrance For Women']
   },
-  {
-    title: 'ORAL CARE',
-    img: 'https://static.ewg.org/skindeep/img/cat-personal-care_C02.png',
-    subItems: ['Baby Toothpaste', 'Mouthwash', 'Tooth Whitening', 'Toothpaste']
-  },
+  
 ];
 
 const CategorySection = () => {

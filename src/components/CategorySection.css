@@ -1,7 +1,7 @@
 
 /* Container styling */
 .browse-categories {
-  background-color: #fff8ef;
+  background-color: #fefffd;
   padding: 2rem;
   font-family: Arial, sans-serif;
 }
@@ -64,7 +64,7 @@
   left: 0; /* Fixed from 'left: 10' */
   width: 100%;
   height: 75%;
-  background-color: #cdc6c6ee;
+  background-color: hsl(60, 33%, 98%);
   padding: 1rem;
   overflow-y: auto;
   display: none;
