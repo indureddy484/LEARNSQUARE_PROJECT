@@ -93,7 +93,7 @@ const SignupPage = () => {
           {loading ? "Signing Up..." : "Sign Up"}
         </button>
         <p>
-          Don’t have an account? <a href="/LoginPage">Sign Up</a>
+          Already have an account? <a href="/LoginPage">Login</a>
         </p>
       </form>
     </div>

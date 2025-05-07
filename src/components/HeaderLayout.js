@@ -40,7 +40,7 @@ const HeaderLayout = () => {
         </nav>
 
         <div className="search-container">
-          <input type="text" placeholder="Search a product" />
+          <input type="text" placeholder="🔍 Search a product" />
         </div>
 
         <button className="profile-icon" onClick={handleProfileClick}>

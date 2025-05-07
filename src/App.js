@@ -6,6 +6,7 @@ import SubcategoryPage from "./pages/SubcategoryPage";
 import HowWeRateSec from './components/HowWeRateSec';
 import LoginPage from './pages/LoginPage';  // Add the LoginPage import
 import SignupPage from './pages/SignupPage';  // Add the SignupPage import
+import Footer  from './components/Footer';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/:category/:subcategory" element={<SubcategoryPage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
