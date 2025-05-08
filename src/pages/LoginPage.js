@@ -23,6 +23,11 @@ const LoginPage = () => {
 
     alert("Login successful!");
     navigate("/");
+
+
+    login(email); // email is already captured from input
+  navigate("/");
+
   };
 
   return (
@@ -45,7 +50,9 @@ const LoginPage = () => {
           <button type="submit">Log In</button>
         </form>
         <p>
-          Don’t have an account? <a href="/signup">Sign Up</a>
+
+        Don't have an account? <a href="/signup">Sign Up</a>
+
         </p>
       </div>
     </div>
