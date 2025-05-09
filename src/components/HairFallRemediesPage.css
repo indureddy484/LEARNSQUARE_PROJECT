@@ -1,0 +1,29 @@
+.hair-fall-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .hair-fall-container h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+  }
+  
+  .hair-fall-container h2 {
+    font-size: 2rem;
+    color: #34495e;
+  }
+  
+  .hair-fall-container ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .hair-fall-container li {
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+  
+  .hair-fall-container strong {
+    font-weight: bold;
+  }
+  

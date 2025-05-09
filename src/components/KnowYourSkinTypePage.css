@@ -1,0 +1,26 @@
+.skin-type-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .skin-type-container h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .skin-type-container h2, .skin-type-container h3 {
+    color: #555;
+    margin-top: 20px;
+  }
+  
+  .skin-type-container ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  .skin-type-container p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #444;
+  }
+  

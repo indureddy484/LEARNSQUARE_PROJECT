@@ -1,0 +1,29 @@
+.text-bottom {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-bottom h3 {
+  order: 1; /* Title first */
+  font-size: 1.4rem;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.text-bottom p {
+  order: 2; /* Excerpt second */
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.read-more-btn {
+  order: 3; /* Read More last */
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.read-more-btn:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,15 @@
+.acne-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  h1, h2, h3 {
+    color: #333;
+  }
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  

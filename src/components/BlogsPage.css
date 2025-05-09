@@ -1,0 +1,55 @@
+.blog-card {
+    display: flex;
+    align-items: flex-end; /* Align text to the bottom of the image */
+    gap: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-4px); /* Hover effect */
+  }
+  
+  .blog-image {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .blog-text {
+    display: flex;
+    align-items: flex-end; /* Ensures text is aligned with the bottom of the image */
+    flex: 1;
+  }
+  
+  .text-bottom {
+    max-width: 100%;
+  }
+  
+  .text-bottom h3 {
+    margin: 0 0 10px;
+    font-size: 1.5rem;
+    color: #222;
+  }
+  
+  .text-bottom p {
+    margin: 0 0 10px;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .read-more-btn {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .read-more-btn:hover {
+    text-decoration: underline;
+  }
+  
