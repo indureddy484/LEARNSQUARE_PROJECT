@@ -1,11 +1,11 @@
 .footer {
-    background-color: #dff0d8; /* pista green */
-    color: #333;
-    padding: 40px 20px 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-top: 2px solid #a9e9ab;
-    margin-top: 30px;
-  }
+  background-color: #eff0ee; /* changed from #dff0d8 to soft cream */
+  color: #333;
+  padding: 40px 20px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-top: 2px solid lab(94.75% -0.35 0.95); /* optional: you can change this to match better */
+  margin-top: 30px;
+}
   
   .footer-columns {
     display: flex;
@@ -21,7 +21,7 @@
   }
   
   .footer-section h3 {
-    color: #2e7d32;
+    color: #262e26;
     font-size: 18px;
     margin-bottom: 10px;
     border-bottom: 1px solid #81c784;
@@ -39,7 +39,7 @@
   }
   
   .footer-section ul li:hover {
-    color: #1b5e20;
+    color: #0f1610;
     text-decoration: underline;
   }
   
@@ -50,13 +50,13 @@
   
   .newsletter-form input[type="email"] {
     padding: 8px;
-    border: 1px solid #a5d6a7;
+    border: 1px solid #627462;
     border-radius: 4px;
     margin-bottom: 10px;
   }
   
   .newsletter-form button {
-    background-color: #66bb6a;
+    background-color: #81c784;
     color: white;
     padding: 8px;
     border: none;
@@ -86,4 +86,15 @@
     padding-top: 15px;
     color: #555;
   }
+  .social-icons a {
+    margin: 0 8px;
+    color: #444;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #007bff;
+  }
+  
   

@@ -11,7 +11,7 @@ const categories = [
   {
     title: 'BODY',
     img: 'https://static.ewg.org/skindeep/img/cat-fragrance_C02.png',
-    subItems: ['Bar Soap', 'Body Wash', 'Hand Cream', 'Body Lotion']
+    subItems: ['Bar Soap', 'Body Wash', 'Body Lotion']
   },
   {
     title: 'HAIR',

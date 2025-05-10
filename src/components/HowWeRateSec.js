@@ -18,8 +18,7 @@ const HowWeRateSec = () => {
           />
           <h4 className="how-we-rate-title">Review products</h4>
           <p>
-            Every product is reviewed by EWG staff to identify product type, use
-            and composition, target demographic, and special product claims.
+          We rate products based on ingredient safety and skin compatibility—clear, research-based, and unbiased.
           </p>
         </div>
 
