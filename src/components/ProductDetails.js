@@ -25,18 +25,12 @@ const ProductDetails = () => {
     localStorage.setItem(productId, JSON.stringify(reviews));
   }, [productId, reviews]);
 
-  // Load wishlist state
+  // Load wishlist state based on product ID presence in wishlist array
   useEffect(() => {
-    const wishlistedItems = JSON.parse(localStorage.getItem('wishlisted')) || {};
-    setWishlisted(Boolean(wishlistedItems[productId]));
-  }, [productId]);
-
-  // Save wishlist state
-  useEffect(() => {
-    const wishlistedItems = JSON.parse(localStorage.getItem('wishlisted')) || {};
-    wishlistedItems[productId] = wishlisted;
-    localStorage.setItem('wishlisted', JSON.stringify(wishlistedItems));
-  }, [wishlisted, productId]);
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const isWishlisted = wishlist.some(item => item.id === product.id);
+    setWishlisted(isWishlisted);
+  }, [product.id]);
 
   if (!product) return <p>Product not found.</p>;
 
@@ -49,7 +43,19 @@ const ProductDetails = () => {
   };
 
   const handleWishlistToggle = () => {
-    setWishlisted(!wishlisted);
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    if (wishlisted) {
+      // Remove from wishlist
+      const updatedWishlist = wishlist.filter(item => item.id !== product.id);
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      setWishlisted(false);
+    } else {
+      // Add to wishlist
+      wishlist.push(product);
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      setWishlisted(true);
+    }
   };
 
   const handleShare = async () => {

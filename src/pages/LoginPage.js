@@ -5,29 +5,50 @@ import "./AuthPages.css"; // Reusing the same style
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
-      alert("Please fill in all fields");
+      setError("Please fill in all fields");
       return;
     }
 
-    // For now, just extract name from email for demo
-    const name = email.split("@")[0];
-    login(name);
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
 
-    alert("Login successful!");
-    navigate("/");
+      const data = await res.json();
 
+      if (!res.ok) {
+        if (data.error === "User not found") {
+          setError("User not found. Please sign up.");
+        } else if (data.error === "Invalid credentials") {
+          setError("Incorrect password. Please try again.");
+        } else {
+          setError("Login failed. Please try again.");
+        }
+        return;
+      }
 
-    login(email); // email is already captured from input
-  navigate("/");
-
+      // ✅ Successful login
+      setError(""); // Clear old errors
+      login({ email, token: data.token });
+      navigate("/"); // Redirect to wishlist page
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -42,17 +63,22 @@ const LoginPage = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
             type="password"
             placeholder="Enter Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {error && <p className="error-message">{error}</p>}
           <button type="submit">Log In</button>
         </form>
         <p>
-
-        Don't have an account? <a href="/signup">Sign Up</a>
-
+          Don't have an account? <a href="/signup">Sign Up</a>
         </p>
       </div>
     </div>
