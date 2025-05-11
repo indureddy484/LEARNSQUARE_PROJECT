@@ -94,3 +94,9 @@
   list-style-type: disc;
   padding-left: 20px;
 }
+
+/* ProductCard.css */
+.product-card-link {
+  text-decoration: none;
+  color: inherit;
+}
