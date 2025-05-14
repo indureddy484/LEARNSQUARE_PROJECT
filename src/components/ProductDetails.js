@@ -1,44 +1,62 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import products from '../data/products';
+import products from '../data/products'; // Local fallback
 import './ProductDetails.css';
 import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
 
 const ProductDetails = () => {
   const { productId } = useParams();
-  const product = products.find(p => p.id === productId);
-
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [showIngredients, setShowIngredients] = useState(false);
   const [review, setReview] = useState('');
   const [reviews, setReviews] = useState([]);
   const [wishlisted, setWishlisted] = useState(false);
 
-  // Load reviews from localStorage
+  // ✅ Fetch from backend
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/products/${productId}`);
+        const data = await res.json();
+
+        if (res.ok) {
+          setProduct(data);
+        } else {
+          console.warn("Product not found in backend, checking local fallback.");
+          const localProduct = products.find(p => p._id === productId || p.id === productId);
+          setProduct(localProduct || null);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        const localProduct = products.find(p => p._id === productId || p.id === productId);
+        setProduct(localProduct || null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [productId]);
+
+  // ✅ Load reviews from localStorage
   useEffect(() => {
     const savedReviews = JSON.parse(localStorage.getItem(productId)) || [];
     setReviews(savedReviews);
   }, [productId]);
 
-  // Save reviews to localStorage
+  // ✅ Save reviews to localStorage
   useEffect(() => {
     localStorage.setItem(productId, JSON.stringify(reviews));
   }, [productId, reviews]);
 
-  // Load wishlist state
+  // ✅ Load wishlist state
   useEffect(() => {
-    const wishlistedItems = JSON.parse(localStorage.getItem('wishlisted')) || {};
-    setWishlisted(Boolean(wishlistedItems[productId]));
-  }, [productId]);
-
-  // Save wishlist state
-  useEffect(() => {
-    const wishlistedItems = JSON.parse(localStorage.getItem('wishlisted')) || {};
-    wishlistedItems[productId] = wishlisted;
-    localStorage.setItem('wishlisted', JSON.stringify(wishlistedItems));
-  }, [wishlisted, productId]);
-
-  if (!product) return <p>Product not found.</p>;
+    if (!product) return;
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const isWishlisted = wishlist.some(item => item.id === product.id || item._id === product._id);
+    setWishlisted(isWishlisted);
+  }, [product]);
 
   const handleReviewSubmit = () => {
     const trimmed = review.trim();
@@ -49,18 +67,30 @@ const ProductDetails = () => {
   };
 
   const handleWishlistToggle = () => {
-    setWishlisted(!wishlisted);
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    if (wishlisted) {
+      const updatedWishlist = wishlist.filter(item => (item.id || item._id) !== (product.id || product._id));
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      setWishlisted(false);
+    } else {
+      wishlist.push(product);
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      setWishlisted(true);
+    }
   };
 
   const handleShare = async () => {
     try {
-      const url = window.location.href;
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(window.location.href);
       alert('Link copied to clipboard!');
-    } catch (err) {
+    } catch {
       alert('Failed to copy link.');
     }
   };
+
+  if (loading) return <p style={{ padding: '20px' }}>Loading product...</p>;
+  if (!product) return <p style={{ padding: '20px' }}>Product not found.</p>;
 
   return (
     <div className="product-detail-container">
@@ -69,23 +99,27 @@ const ProductDetails = () => {
           src={product.image}
           alt={product.name}
           className="product-image"
-          onError={(e) => { e.target.src = 'https://via.placeholder.com/300x300?text=Image+Unavailable'; }}
+          onError={(e) => {
+            e.target.src = 'https://via.placeholder.com/300x300?text=Image+Unavailable';
+          }}
         />
-        <p className="image-rating"><strong>CareCoder Rating:</strong> {product.rating}⭐</p>
+        <p className="image-rating">
+          <strong>CareCoder Rating:</strong> {product.rating || 'N/A'}⭐
+        </p>
       </div>
 
       <div className="product-info">
         <h2>{product.name}</h2>
-        <p><strong>Price Range:</strong> {product.price}</p>
+        <p><strong>Price:</strong> ₹{product.price}</p>
         <p><strong>Features:</strong> {product.features || 'N/A'}</p>
 
         <div className="collapsible-section">
           <button onClick={() => setShowIngredients(!showIngredients)}>
             {showIngredients ? 'Hide Ingredients' : 'Show Ingredients'}
           </button>
-          {showIngredients && (
+          {showIngredients && product.ingredients && (
             <ul className="ingredient-list">
-              {product.ingredients?.split(',').map((ing, i) => (
+              {product.ingredients.split(',').map((ing, i) => (
                 <li key={i}>{ing.trim()}</li>
               ))}
             </ul>
@@ -95,20 +129,24 @@ const ProductDetails = () => {
         <p><strong>Description:</strong> {product.description}</p>
 
         <div className="button-group">
-          <a href={product.officialLink} target="_blank" rel="noopener noreferrer">
-            <button className="link-button">Official Website</button>
-          </a>
-          <a href={product.amazonLink} target="_blank" rel="noopener noreferrer">
-            <button className="link-button">Amazon</button>
-          </a>
+          {product.officialLink && (
+            <a href={product.officialLink} target="_blank" rel="noopener noreferrer">
+              <button className="link-button">Official Website</button>
+            </a>
+          )}
+          {product.amazonLink && (
+            <a href={product.amazonLink} target="_blank" rel="noopener noreferrer">
+              <button className="link-button">Amazon</button>
+            </a>
+          )}
         </div>
 
         <div className="action-icons">
           <span
             onClick={handleWishlistToggle}
             title="Add to Wishlist"
-            aria-label="Add to Wishlist"
             role="button"
+            aria-label="Add to Wishlist"
           >
             {wishlisted ? <FaHeart className="icon wishlisted" /> : <FaRegHeart className="icon" />}
           </span>

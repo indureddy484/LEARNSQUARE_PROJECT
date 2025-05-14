@@ -6,7 +6,7 @@ const categories = [
   {
     title: 'FACE',
     img: 'https://static.ewg.org/skindeep/img/cat-face-body_C02.png',
-    subItems: ['Facial Wash', 'Facial Moisturizer', 'SunScreen', 'Serum', 'Around Eye Cream']
+    subItems: ['Face Wash', 'Face Moisturizer', 'SunScreen', 'Serum', 'Around Eye Cream']
   },
   {
     title: 'BODY',

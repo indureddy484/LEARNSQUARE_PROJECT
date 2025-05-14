@@ -2,10 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #81a98f; /* pista green */
+  background-color: #bce5b1;
   padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  gap: 10px;
 }
 
 .menu-icon {
@@ -20,30 +21,48 @@
   font-weight: bold;
 }
 
-.search-container input {
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.search-form {
+  flex: 1;
+  max-width: 300px;
+  margin: 0 15px;
 }
 
-.profile-container {
-  position: relative;
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
 }
 
 .profile-icon {
-  background-color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 18px;
   cursor: pointer;
-  width: 35px;
-  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-circle {
+  width: 36px;
+  height: 36px;
+  background-color: #2e7d32;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-circle.guest {
+  background-color: #ccc;
 }
 
 .profile-dropdown {
   position: absolute;
-  top: 40px;
-  right: 0;
+  top: 60px;
+  right: 20px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -78,7 +97,7 @@
   left: 0;
   top: 60px;
   z-index: 5;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
   width: 200px;
 }
 
@@ -87,4 +106,42 @@
   text-decoration: none;
   color: #444;
   font-weight: 500;
+}
+
+/* Medium screens */
+@media (max-width: 768px) {
+  .search-form {
+    max-width: 200px;
+  }
+
+  .search-input {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .profile-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .search-form {
+    width: 100%;
+    padding: 0 10px;
+    margin: 10px 0;
+  }
+
+  .search-input {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  .profile-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
 }

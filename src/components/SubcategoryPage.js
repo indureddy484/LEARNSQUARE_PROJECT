@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import products from '../data/products'; // ✅ Import from data file
+import products from '../data/products'; // ✅ Static data fallback
 import './SubcategoryPage.css';
 
 const SubcategoryPage = () => {
@@ -21,14 +20,19 @@ const SubcategoryPage = () => {
         ) : (
           filteredProducts.map(product => (
             <Link
-              key={product.id}
-              to={`/product/${product.category}/${product.subcategory}/${product.id}`}
+              key={product._id || product.id} // ✅ Use either _id (MongoDB) or id (static)
+              to={`/product/${product.category}/${product.subcategory}/${product._id || product.id}`} // ✅ Dynamic fallback
               className="product-card"
             >
-              <img src={product.image} alt={product.name} className="product-img" />
+              <img
+                src={product.image}
+                alt={product.name}
+                className="product-img"
+                onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=Image+Missing'; }}
+              />
               <div className="product-info">
                 <h4>{product.name}</h4>
-                <p className="price">{product.price}</p>
+                <p className="price">₹{product.price}</p>
               </div>
             </Link>
           ))

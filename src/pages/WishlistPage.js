@@ -1,29 +1,35 @@
-// src/pages/WishlistPage.jsimport React from "react";
-import { useWishlist } from "../context/WishlistContext";
+import React, { useEffect, useState } from 'react';
+import './WishlistPage.css'; // Optional: for styling
 
 const WishlistPage = () => {
-  const { wishlist, removeFromWishlist } = useWishlist();
+  const [wishlist, setWishlist] = useState([]);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem('wishlist')) || [];
+    setWishlist(stored);
+  }, []);
 
   const handleRemove = (id) => {
-    removeFromWishlist(id);
+    const updated = wishlist.filter(product => product.id !== id);
+    setWishlist(updated);
+    localStorage.setItem('wishlist', JSON.stringify(updated));
   };
 
+  if (wishlist.length === 0) return <p>No products in wishlist.</p>;
+
   return (
-    <div className="wishlist">
-      <h2>Your Wishlist</h2>
-      {wishlist.length > 0 ? (
-        wishlist.map((item) => (
-          <div key={item.id} className="wishlist-item">
-            <img src={item.image} alt={item.name} />
-            <h3>{item.name}</h3>
-            <p>{item.brand}</p>
-            <p>Rating: {item.rating}</p>
-            <button onClick={() => handleRemove(item.id)}>Remove</button>
+    <div className="wishlist-page">
+      <h2>My Wishlist</h2>
+      <div className="wishlist-grid">
+        {wishlist.map(product => (
+          <div key={product.id} className="wishlist-card">
+            <img src={product.image} alt={product.name} />
+            <h3>{product.name}</h3>
+            <p>{product.price}</p>
+            <button onClick={() => handleRemove(product.id)}>Remove</button>
           </div>
-        ))
-      ) : (
-        <p>Your wishlist is empty!</p>
-      )}
+        ))}
+      </div>
     </div>
   );
 };
